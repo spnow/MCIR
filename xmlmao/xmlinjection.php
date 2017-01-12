@@ -2,7 +2,7 @@
 /*
 Magical Code Injection Rainbow - A set of configurable injection testbeds 
 Daniel "unicornFurnace" Crowley
-Copyright (C) 2012 Trustwave Holdings, Inc.
+Copyright (C) 2014 Trustwave Holdings, Inc.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -32,7 +32,9 @@ include('../includes/options.inc.php');
 		</select></td></tr>
 		<tr><td>Custom XML (*INJECT* specifies injection point):</td><td><textarea name="custom_inject"><?php echo (isset($_REQUEST['custom_inject']) ? htmlentities($_REQUEST['custom_inject']) : '' ); ?></textarea></td></tr>
 		<tr><td><b>Parser options:</b></td></tr>
-		<tr><td>Load external DTD?</td><td><input type='checkbox' name='ext_dtd' <?php echo (isset($_REQUEST['ext_dtd']) ?'checked' : ''); ?></td></tr>
+                <tr><td>Load external DTD?</td><td><input type='checkbox' name='ext_dtd' <?php echo (isset($_REQUEST['ext_dtd']) ?'checked' : ''); ?>></td></tr>
+                <tr><td>Validate with the DTD?</td><td><input type='checkbox' name='valid_dtd' <?php echo (isset($_REQUEST['valid_dtd']) ?'checked' : ''); ?>></td></tr>
+                <tr><td>Substitute entities?</td><td><input type='checkbox' name='subs_ent' <?php echo (isset($_REQUEST['subs_ent']) ?'checked' : ''); ?>></td></tr>
                 <tr><td>Enable XInclude?</td><td><input type='checkbox' name='xinclude' <?php echo (isset($_REQUEST['xinclude']) ? 'checked' : ''); ?>></td></tr>
 	</table>
 	<input type="submit" id="submit" name="submit" value="Inject!">
@@ -93,6 +95,12 @@ if(isset($_REQUEST['submit'])){
 	
 	//Enable external DTD loading if the option is on
 	if(isset($_REQUEST['ext_dtd']) and $_REQUEST['ext_dtd'] == 'on') $xmloptions = $xmloptions | LIBXML_DTDLOAD;
+
+        //Validate with the DTD if the option is on
+        if(isset($_REQUEST['valid_dtd']) and $_REQUEST['valid_dtd'] == 'on') $xmloptions = $xmloptions | LIBXML_DTDVALID;
+ 
+        //Substitute entities if the option is on
+        if(isset($_REQUEST['subs_ent']) and $_REQUEST['subs_ent'] == 'on') $xmloptions = $xmloptions | LIBXML_NOENT;
 
 	$xml = '';
 

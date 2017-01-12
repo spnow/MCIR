@@ -2,7 +2,7 @@
 /*
 Magical Code Injection Rainbow - A set of configurable injection testbeds 
 Daniel "unicornFurnace" Crowley
-Copyright (C) 2012 Trustwave Holdings, Inc.
+Copyright (C) 2014 Trustwave Holdings, Inc.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -49,6 +49,7 @@ if(isset($_REQUEST['submit'])){
 	
 	if (isset($_REQUEST['custom_inject']) and $_REQUEST['custom_inject']!=''){
 		$output = str_replace('*INJECT*', $_REQUEST['inject_string'], $_REQUEST['custom_inject']);
+		$display_output = str_replace('*INJECT*', 'UNDERLINEME'.$_REQUEST['inject_string'].'UNDERLINEMEEND', $_REQUEST['custom_inject']);
 	}else{
 		switch ($_REQUEST['location']){
 			case 'body':
